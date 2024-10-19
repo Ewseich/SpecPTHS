@@ -19,7 +19,7 @@ public class ModelChecker {
                 }
             }
         }
-        if (Math.abs(countX - countO) >= 2 || countO - countX == 1) { //если ноликов больше или кого-то больше на два+, то это невозможный вариант игры
+        if (Math.abs(countX - countO) >= 2 || countO - countX == 1 || countO + countX > 9) { //если ноликов больше или кого-то больше на два+, то это невозможный вариант игры
             return -1;
         }
         for (int i = 0; i < model.length; i++) {
@@ -63,7 +63,10 @@ public class ModelChecker {
             return -1;
         }
         else if (winX) {
-            return 1;
+            if (countX == countO) {
+                return -1;
+            }
+            else return 1;
         }
         else if (winO) {
             return 0;
@@ -74,7 +77,10 @@ public class ModelChecker {
             }
             else {
                 if (countX == countO) {
-                    return 2;
+                    if (winX) {
+                        return -1;
+                    }
+                    else return 2;
                 }
                 else {
                     return 3;
