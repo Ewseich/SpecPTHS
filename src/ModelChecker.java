@@ -6,6 +6,9 @@ public class ModelChecker {
         char o = 'o';
         boolean winX = false;
         boolean winO = false;
+        if (model.length > 3) {
+            return -1;
+        }
         for (int i = 0; i < model.length; i++) { //Считаем количество крестиков и ноликов
             for (int j = 0; j < model[i].length; j++) {
                 if (model[i][j] == x) {
@@ -14,7 +17,6 @@ public class ModelChecker {
                 if (model[i][j] == o) {
                     countO++;
                 }
-
             }
         }
         if (Math.abs(countX - countO) >= 2 || countO - countX == 1) { //если ноликов больше или кого-то больше на два+, то это невозможный вариант игры
@@ -25,7 +27,7 @@ public class ModelChecker {
                 if (model[i][0] == x) {
                     winX = true;
                 }
-                else {
+                if (model[i][0] == o) {
                     winO = true;
                 }
             }
@@ -35,7 +37,7 @@ public class ModelChecker {
                 if (model[0][j] == x) {
                     winX = true;
                 }
-                else {
+                if (model[0][j] == o) {
                     winO = true;
                 }
             }
@@ -45,7 +47,7 @@ public class ModelChecker {
             if (model[0][0] == x) {
                 winX = true;
             }
-            else {
+            if (model[0][0] == o) {
                 winO = true;
             }
         }
@@ -53,18 +55,18 @@ public class ModelChecker {
             if (model[0][2] == x) {
                 winX = true;
             }
-            else {
+            else if (model[0][2] == o) {
                 winO = true;
             }
         }
-        if (winX == true && winO == false) {
+        if (winX && winO) {
+            return -1;
+        }
+        else if (winX) {
             return 1;
         }
-        else if (winO == true && winX == false) {
+        else if (winO) {
             return 0;
-        }
-        else if (winX == true && winO == true) {
-            return -1;
         }
         else {
             if (countX + countO == 9) {
